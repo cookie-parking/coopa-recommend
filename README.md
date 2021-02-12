@@ -6,7 +6,7 @@
 
 ## 핵심 기능
 1. Request를 해당 URL에 보내서 body 데이터를 긁어옴
-2. cheerio를 이용해서 컨텐츠 파싱
-3. AWS Comprehend를 통해 Keyword 뽑음
+2. cheerio를 이용해서 컨텐츠 파싱된 컨텐츠를 DB에 저장
+3. DB에서 데이터를 가져와서 AWS Comprehend를 통해 Keyword 뽑음
 4. AWS Lambda에 keyword 보내서 크롤링 데이터 받아옴
 5. 해당 크롤링한 데이터를 DB에 저장하기
