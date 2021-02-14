@@ -6,11 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @EnableBatchProcessing
 @SpringBootApplication
-open class RecommendApplication {
-    companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            SpringApplication.run(RecommendApplication::class.java, *args)
-        }
-    }
+class RecommendApplication
+
+fun main(args: Array<String>) {
+    SpringApplication.run(RecommendApplication::class.java, *args)
 }

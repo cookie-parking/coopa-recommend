@@ -24,23 +24,27 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-batch")
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation ("org.springframework.boot:spring-boot-starter-web")
+    implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
     implementation(platform("com.amazonaws:aws-java-sdk-bom:1.11.953"))
     implementation("com.amazonaws:aws-java-sdk-comprehend")
-    implementation("org.springframework.boot:spring-boot-starter-web")
 
-    compileOnly("org.projectlombok:lombok")
+    implementation ("io.springfox:springfox-boot-starter:3.0.0")
+    implementation ("javax.xml.bind:jaxb-api")
 
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("mysql:mysql-connector-java")
+    implementation (group="org.javassist", name="javassist", version="3.15.0-GA")
 
-    annotationProcessor("org.projectlombok:lombok")
+    compileOnly ("org.projectlombok:lombok")
+    annotationProcessor ("org.projectlombok:lombok")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation ("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.batch:spring-batch-test")
+    runtimeOnly ("com.h2database:h2")
+    runtimeOnly("mysql:mysql-connector-java")
 }
 
 tasks.withType<KotlinCompile> {

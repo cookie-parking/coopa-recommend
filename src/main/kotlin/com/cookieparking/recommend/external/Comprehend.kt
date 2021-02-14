@@ -12,19 +12,21 @@ import org.springframework.stereotype.Component
 @Component
 class Comprehend (val environment: Environment) {
 
-    private var awsCreds: BasicAWSCredentials = BasicAWSCredentials(environment.getProperty("accessKey"), environment.getProperty("secretKey"))
+    private val awsCreds: BasicAWSCredentials = BasicAWSCredentials(environment.getProperty("accessKey"), environment.getProperty("secretKey"))
 
-    private var comprehendClient: AmazonComprehend = AmazonComprehendClientBuilder.standard()
+    private val comprehendClient: AmazonComprehend = AmazonComprehendClientBuilder.standard()
         .withCredentials(AWSStaticCredentialsProvider(awsCreds))
         .withRegion("ap-northeast-2")
         .build()
 
-    fun getKeyPhrases (text: String) = run {
+    private val langSet: Set<String> = setOf<String>("ar", "hi", "ko", "zh-TW", "ja", "zh", "de", "pt", "en", "it", "fr", "es")
+
+    fun getKeyPhrases (text: String): MutableList<KeyPhrase>? {
         val languageCode = this.getDominantLanguage(text)
         val detectKeyPhrasesRequest:DetectKeyPhrasesRequest = DetectKeyPhrasesRequest().withText(text)
             .withLanguageCode(languageCode)
         val detectKeyPhrasesResult:DetectKeyPhrasesResult = this.comprehendClient.detectKeyPhrases(detectKeyPhrasesRequest)
-        detectKeyPhrasesResult.getKeyPhrases().forEach(System.out::println)
+        return detectKeyPhrasesResult.getKeyPhrases()
     }
 
     private fun getDominantLanguage (text: String): String = run {
@@ -32,12 +34,16 @@ class Comprehend (val environment: Environment) {
         val detectDominantLanguageResult: DetectDominantLanguageResult = this.comprehendClient.detectDominantLanguage(detectDominantLanguageRequest)
         var dominantLanguage: String = ""
         var dominantLanguageScore: Float = 0.0F
-        detectDominantLanguageResult.getLanguages().forEach { em ->
+        detectDominantLanguageResult.languages.forEach { em ->
             if (em.score > dominantLanguageScore) {
                 dominantLanguageScore = em.score
                 dominantLanguage = em.languageCode
             }
         }
-        return dominantLanguage
+
+        if (langSet.contains(dominantLanguage)) {
+            return dominantLanguage
+        }
+        return "ko"
     }
 }
