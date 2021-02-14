@@ -3,8 +3,8 @@ package com.cookieparking.recommend.job
 import com.cookieparking.recommend.entity.Cookie
 import com.cookieparking.recommend.entity.Keyword
 import com.cookieparking.recommend.external.Comprehend
-import com.cookieparking.recommend.util.ItemListProcessor
-import com.cookieparking.recommend.util.JpaItemListWriter
+import com.cookieparking.recommend.job.custom.ExtractKeywordProcessor
+import com.cookieparking.recommend.job.custom.JpaItemListWriter
 import lombok.extern.slf4j.Slf4j
 import org.slf4j.LoggerFactory
 import org.springframework.batch.core.Step
@@ -59,7 +59,7 @@ class RecommendJobConfiguration (
     fun extractKeywordProcessor (
         @Value("#{jobParameters[version]}") version: String?,
     ): ItemProcessor<Cookie, List<Keyword>> {
-        return ItemListProcessor(comprehend)
+        return ExtractKeywordProcessor(comprehend)
     }
 
     private fun keywordWriterList(): JpaItemListWriter<Keyword> {

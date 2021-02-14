@@ -1,4 +1,4 @@
-package com.cookieparking.recommend.util
+package com.cookieparking.recommend.job.custom
 
 import org.springframework.batch.item.database.JpaItemWriter
 
