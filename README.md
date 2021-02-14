@@ -1,6 +1,10 @@
 # Coopa-Recommend
 쿠키파킹 Article Recommend를 위한 Batch System
 
+Kotlin으로 작성되어 있는 Spring Batch Program이 거의 없길래 Public Repo로 돌려놨습니다 :)
+
+이슈 언제나 대환영합니다!
+
 ## Simple Architecture
 ![Page2](https://user-images.githubusercontent.com/37579681/107773975-c21fba00-6d81-11eb-94f5-c23a9a1e69c4.jpg)
 
